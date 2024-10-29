@@ -7,6 +7,8 @@ import Product from './Components/Product';
 import Footer from './Components/Footer';
 import About from './Components/About';
 import Cart from './Components/Cart';
+import Login from './Components/Login';
+import Signup from './Components/signup';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
     <Navbar /> 
       <Routes>
         <Route path="/" element={<HeroSection />} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<Signup/>} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<Product />} />
         <Route path="/about" element={<About/>} />

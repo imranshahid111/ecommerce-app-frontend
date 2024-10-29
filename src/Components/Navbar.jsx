@@ -29,9 +29,9 @@ const state = useSelector((state)=>state.handleCart)
             </li>
           </ul>
           <div className='buttons'>
-            <Link className='btn btn-outline-dark'><i className="fa-solid fa-right-to-bracket me-1"></i>Login</Link>
-            <Link className='btn btn-outline-dark ms-2'><i className="fa fa-user-plus me-1"></i>Signup</Link>
-            <Link to="/cart" className='btn btn-outline-dark ms-2'><i className="fa fa-shopping-cart me-1"></i>Cart {state.length}</Link>
+            <Link to='/login' className='btn btn-outline-dark'><i className="fa-solid fa-right-to-bracket me-1"></i>Login</Link>
+            <Link to='/signup' className='btn btn-outline-dark ms-2'><i className="fa fa-user-plus me-1"></i>Signup</Link>
+            <Link  className='btn btn-outline-dark ms-2'><i className="fa fa-shopping-cart me-1"></i>Cart {state.length}</Link>
           </div>
         </div>
       </div>

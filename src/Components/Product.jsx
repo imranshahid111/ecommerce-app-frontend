@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector , useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addCart } from '../redux/action';
 
 const Product = () => {
@@ -10,19 +10,21 @@ const Product = () => {
     const [error, setError] = useState(null);
 
     const dispatch = useDispatch();
-    const addProduct = (product)=>{
+    const addProduct = (product) => {
         dispatch(addCart(product));
-    }
+    };
 
     useEffect(() => {
         const getProduct = async () => {
+            setLoading(true);
             try {
-                const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+                const response = await fetch(`http://localhost:3000/api/v1/product/products/${id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setProduct(data);
+                console.log(data.product.title); // Access the title after parsing
+                setProduct(data.product); // Store only the product object
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -45,11 +47,11 @@ const Product = () => {
                     <h4 className='text-uppercase text-black-50'>{product.category}</h4>
                     <h1 className='display-5'>{product.title}</h1>
                     <p className='lead fw-bolder'>
-                        Rating {product.rating?.rate || 'N/A'}<i className='fa fa-star'></i>
+                        Rating {product.rating?.rate || 'N/A'} <i className='fa fa-star'></i>
                     </p>
                     <h3 className='display-6 fw-bold my-4'>${product.price}</h3>
                     <p className='lead'>{product.description}</p>
-                    <button className='btn btn-outline-dark' onClick={()=>addProduct(product)}>Add to Cart</button>
+                    <button className='btn btn-outline-dark' onClick={() => addProduct(product)}>Add to Cart</button>
                 </div>
             </>
         );

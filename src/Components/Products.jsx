@@ -8,19 +8,32 @@ const Products = () => {
   let componentMount = true;
 
   useEffect(() => {
+    let componentMount = true;
+  
     const getProduct = async () => {
       setLoading(true);
-      const response = await fetch("https://fakestoreapi.com/products");
-      if (componentMount) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
+      try {
+        const response = await fetch("http://localhost:3000/api/v1/product/products");
+        if (componentMount) {
+          const data = await response.json();
+          setData(data.data || []);
+          setFilter(data.data || []);
+          console.log(filter);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
         setLoading(false);
-        console.log(Filter);
       }
-      return (componentMount = false);
     };
+  
     getProduct();
+  
+    return () => {
+      componentMount = false;
+    };
   }, []);
+  
 
 
   const ProductFilter = (cat) =>{
@@ -42,14 +55,14 @@ const Products = () => {
           return (
             <>
             <div className="col-md-3 mb-4">
-              <div className="card h-100 text-center p-4" style={{ width: "18rem" }} key={product.id}>
+              <div className="card h-100 text-center p-4" style={{ width: "18rem" }} key={product._id}>
                 <img src={product.image} className="card-img-top"  height="250px" alt={product.title} />
                 <div className="card-body">
                   <h5 className="card-title mb-0" >{product.title.substring(0,12)}</h5>
                   <p className="card-text lead fw-bolder">
                    ${product.price}
                   </p>
-                  <Link to={`/products/${product.id}`}   className="btn btn-outline-dark">
+                  <Link to={`/products/${product._id}`}   className="btn btn-outline-dark">
                     Buy Now
                   </Link>
                 </div>
